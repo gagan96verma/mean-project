@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import validator from 'validator';
-import {HttpRequestsService} from '../services/http-requests.service';
+import {HttpRequestsService} from '../../services/http-requests.service';
 
 @Component({
   selector: 'app-form',

@@ -15,5 +15,7 @@ export class Routes {
     app.route('/api/dummy').get(this.userController.generateDummyData);
 
     app.route('/api/signup').post(this.userController.addNewUser);
+
+    app.route('/api/login').post(this.userController.userLogin);
   }
 }

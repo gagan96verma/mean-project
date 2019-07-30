@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {HttpRequestsService} from '../services/http-requests.service';
+import {HttpRequestsService} from '../../services/http-requests.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private httpRequest: HttpRequestsService) { }
+  constructor(private fb: FormBuilder, private httpRequest: HttpRequestsService, private router: Router) { }
 
   ngOnInit() {
     this.initilizeForm();
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   submitForm() {
     this.httpRequest.login(this.values).subscribe(resp => {
-      console.log('Login Successful!!');
+      this.router.navigate(['home']);
     });
   }
 

@@ -19,4 +19,16 @@ export class HttpRequestsService {
   login(data) {
     return this.httpClient.post('http://localhost:8900/api/login', data);
   }
+
+  getToken() {
+    return localStorage.getItem('authToken') ? localStorage.getItem('authToken') : '';
+  }
+
+  createPost(postData) {
+    return this.httpClient.post('http://localhost:8900/api/create-post', postData);
+  }
+
+  getPosts() {
+    return this.httpClient.get('http://localhost:8900/api/all-posts');
+  }
 }

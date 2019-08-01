@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FormComponent } from './core/form/form.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {SignupComponent} from './core/signup/signup.component';
 import { LoginComponent } from './core/login/login.component';
 import { HomeComponent } from './feature/home/home.component';
@@ -13,11 +13,13 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import {CoreModule} from './core/core.module';
 import {FeatureModule} from './feature/feature.module';
+import {AuthInterceptors} from './auth-interceptors';
 
 const appRoutes: Routes = [
-  { path: 'home', loadChildren: './src/app/feature/feature.module#FeatureModule' },
-  { path: 'signup', loadChildren: './src/app/core/core.module#CoreModule' },
-  { path: 'login', loadChildren: './src/app/core.module#CoreModule' }
+  { path: '', pathMatch: 'full', redirectTo: 'home'},
+  { path: 'home', loadChildren: './feature/feature.module#FeatureModule' },
+  { path: 'signup', loadChildren: './core/core.module#CoreModule' },
+  { path: 'login', loadChildren: './core/core.module#CoreModule' }
 ];
 
 @NgModule({
@@ -32,7 +34,13 @@ const appRoutes: Routes = [
     FeatureModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptors,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

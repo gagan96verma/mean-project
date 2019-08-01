@@ -1,13 +1,42 @@
 <div class="container">
-  <div class="row text-center">
-    <div>Link For starting new post</div>
-    <div>
-      <div>user's image and name</div>
-      <div>User's post</div>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+    <div (click)="show()">Create Post</div>
+    <div class="mb-3">Link For starting new post</div>
+    <div class="card p-3 mb-3" *ngFor="let post of allPosts">
+      <div><i class="fa fa-user fa-4x"></i>Gagan</div>
+      <div>{{ post?.postTitle }}</div>
       <div>Comments</div>
       <div>
-        <textarea></textarea>
-        <button>Submit</button>
+        <textarea class="form-control"></textarea>
+        <button class="btn btn-success">Submit</button>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{title}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!--<ng-content select=".modal-body"> </ng-content>-->
+        <form [formGroup]="createPostForm">
+          <textarea class="form-control" formControlName="postTitle"></textarea>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <div class="pull-left">
+          <button class="btn btn-default" (click)="hide()"> Cancel </button>
+          <button class="btn btn-primary" (click)="createPost()"> Create </button>
+        </div>
       </div>
     </div>
   </div>

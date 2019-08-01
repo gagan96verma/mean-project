@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
 
   submitForm() {
     this.httpRequest.login(this.values).subscribe(resp => {
+      localStorage.setItem('authToken', resp[`token`]);
       this.router.navigate(['home']);
     });
   }

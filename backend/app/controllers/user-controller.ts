@@ -1,6 +1,8 @@
 import momgoose from 'mongoose';
 import { UserSchema } from '../models/user-model';
 import { Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
+import { ENVIRONMENT } from '../environment/environment';
 
 const UserMongooseModel = momgoose.model('User', UserSchema);
 
@@ -25,12 +27,16 @@ export class UserController {
 
   userLogin(req: Request, res: Response) {
     const { email, password } = req.body;
-    UserMongooseModel.find({email}, (err, data) => {
+    UserMongooseModel.findOne({email}, (err, data) => {
       if (err) {
         res.send('Login Failed ' + err);
-      } else if (data.length && (data[0].password === password)) {
-        res.json(data);
-      } else if (!data.length) {
+      } else if (data && (data.password === password)) {
+        const token = jwt.sign({ email: data.email, id: data._id }, ENVIRONMENT[`JWT_KEY`]);
+        res.json({
+          user: data,
+          token
+        });
+      } else if (!data) {
         res.send('Email does not exists!');
       } else {
         res.send({ code: 204, status: 'Invalid Credentials!' });

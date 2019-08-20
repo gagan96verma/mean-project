@@ -22,7 +22,7 @@ export class JwtVerify {
             if (error) {
               res.send('Unauthorised access to the API');
             } else {
-              req.body[`userId`] = data.id;
+              req[`user`] = user;
               next();
             }
           });

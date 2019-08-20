@@ -38,6 +38,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  updatePost(post) {
+    this.childModal.show();
+    this.createPostForm.patchValue({ postTitle: post.postTitle });
+  }
+
   show() {
     this.childModal.show();
   }

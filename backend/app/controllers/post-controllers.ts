@@ -1,13 +1,19 @@
 import mongoose from 'mongoose';
 import { PostSchema } from '../models/post-model';
 import { Request, Response } from 'express';
+import { UserSchema } from '../models/user-model';
 
 const PostModelSchema = mongoose.model('Post', PostSchema);
+const UserModelSchema = mongoose.model('User', UserSchema);
 
 export class PostControllers {
 
   createPost(req: Request, res: Response) {
-    const newPost = new PostModelSchema(req.body);
+    const { id, first_name, last_name } = req[`user`];
+    const newPost = new PostModelSchema({
+      postTitle: req.body.postTitle,
+      user: { id, first_name, last_name }
+    });
     newPost.save((error, post) => {
       if (error) {
         res.send(error);

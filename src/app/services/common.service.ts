@@ -5,5 +5,12 @@ import { Injectable } from '@angular/core';
 })
 export class CommonService {
 
+  toastMessage: string;
+
   constructor() { }
+
+  isAuthenticated() {
+    const token = localStorage.getItem('authToken') ? localStorage.getItem('authToken') : '';
+    return token ? true : false;
+  }
 }

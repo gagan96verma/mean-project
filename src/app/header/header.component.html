@@ -9,11 +9,14 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">About <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="httpService.getToken()">
         <span class="nav-link" aria-disabled="true" (click)="logout()">Logout</span>
+      </li>
+      <li class="nav-item" *ngIf="!httpService.getToken()">
+        <span class="nav-link" aria-disabled="true" (click)="loginOrSignUp('signup')">SignUp</span>
+      </li>
+      <li class="nav-item" *ngIf="!httpService.getToken()">
+        <span class="nav-link" aria-disabled="true" (click)="loginOrSignUp('login')">Login</span>
       </li>
     </ul>
   </div>

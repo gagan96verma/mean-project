@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {HttpRequestsService} from '../services/http-requests.service';
 
 @Component({
   selector: 'app-header',
@@ -8,15 +9,19 @@ import {Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public httpService: HttpRequestsService) { }
 
   ngOnInit() {
-    this.logout();
+    // this.logout();
   }
 
   logout() {
     localStorage.removeItem('authToken');
     this.router.navigate(['login']);
+  }
+
+  loginOrSignUp(loginOrSignUp) {
+    this.router.navigate([loginOrSignUp]);
   }
 
 }

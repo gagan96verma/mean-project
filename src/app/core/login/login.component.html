@@ -1,16 +1,18 @@
 <div class="container">
     <div class="row">
-        <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
-            <div class="col-md-6 form-group"> <!-- Email -->
-                <label for="email" class="control-label">E-mail</label>
-                <input type="text" formControlName="email" class="form-control" id="email" name="email" placeholder="your@email.com">
+        <div class="col-md-6 offset-md-3">
+          <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+            <div class="form-group"> <!-- Email -->
+              <label for="email" class="control-label">E-mail</label>
+              <input type="text" formControlName="email" class="form-control" id="email" name="email" placeholder="your@email.com">
             </div>
 
-            <div class="col-md-6 form-group"> <!-- Password -->
-                <label for="password" class="control-label">Password</label>
-                <input type="text" formControlName="password" class="form-control" id="password" name="password" placeholder="*****">
+            <div class="form-group"> <!-- Password -->
+              <label for="password" class="control-label">Password</label>
+              <input type="text" formControlName="password" class="form-control" id="password" name="password" placeholder="*****">
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
-        </form>
+          </form>
+        </div>
     </div>
 </div>

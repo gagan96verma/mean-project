@@ -11,12 +11,16 @@ export class UserController {
   addNewUser(req: Request, res: Response) {
     const newUser = new UserMongooseModel(req.body);
     UserMongooseModel.find({email: req.body.email}, (err, data) => {
-      if (err) {
+      if (!data.length) {
         newUser.save((error, userData) => {
           if (error) {
             res.send(error);
           } else {
-            res.json(userData);
+            const token = jwt.sign({ email: data.email, id: data._id }, ENVIRONMENT[`JWT_KEY`]);
+            res.json({
+              user: userData,
+              token
+            });
           }
         });
       } else {

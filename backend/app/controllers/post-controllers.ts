@@ -9,10 +9,10 @@ const UserModelSchema = mongoose.model('User', UserSchema);
 export class PostControllers {
 
   createPost(req: Request, res: Response) {
-    const { id, first_name, last_name } = req[`user`];
+    const { id } = req[`user`];
     const newPost = new PostModelSchema({
       postTitle: req.body.postTitle,
-      user: { id, first_name, last_name }
+      user: { id }
     });
     newPost.save((error, post) => {
       if (error) {
@@ -28,6 +28,12 @@ export class PostControllers {
       if (err) {
         res.send(err);
       } else {
+        const logs = posts.map((post) => {
+          UserModelSchema.findOne({_id: post.user.id}, (error, userDetail) => {
+            post['name'] = userDetail.first_name + ' ' + userDetail.last_name;
+            return post;
+          });
+        });
         res.json(posts);
       }
     });

@@ -14,10 +14,11 @@ import { FooterComponent } from './footer/footer.component';
 import {CoreModule} from './core/core.module';
 import {FeatureModule} from './feature/feature.module';
 import {AuthInterceptors} from './auth-interceptors';
+import {AuthGuardService} from './services/auth-guard.service';
 
 const appRoutes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home'},
-  { path: 'home', loadChildren: './feature/feature.module#FeatureModule' },
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: 'home', loadChildren: './feature/feature.module#FeatureModule', canActivate: [AuthGuardService] },
   { path: 'signup', loadChildren: './core/core.module#CoreModule' },
   { path: 'login', loadChildren: './core/core.module#CoreModule' }
 ];

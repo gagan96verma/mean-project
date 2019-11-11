@@ -15,6 +15,8 @@ import {CoreModule} from './core/core.module';
 import {FeatureModule} from './feature/feature.module';
 import {AuthInterceptors} from './auth-interceptors';
 import {AuthGuardService} from './services/auth-guard.service';
+import {ToastrModule, ToastrService} from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -27,12 +29,14 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
     CoreModule,
     FeatureModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
@@ -40,7 +44,7 @@ const appRoutes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptors,
       multi: true
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })
